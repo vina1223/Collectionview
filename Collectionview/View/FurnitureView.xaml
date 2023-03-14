@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Collectionview.View.FurnitureView"
+             xmlns:ViewModel="clr-namespace:Collectionview.ViewModel"
+             Title="FurnitureView">
+
+    <ContentPage.BindingContext>
+        <ViewModel:FurnitureViewModel></ViewModel:FurnitureViewModel>
+    </ContentPage.BindingContext>
+    
+    <ScrollView>
+        <StackLayout>
+            <HorizontalStackLayout >
+                <Label Text="Furniture Shop" 
+                       HorizontalOptions="Start"
+                       />
+                <Image Source="dotnet_bot"
+                       HeightRequest="40"
+                       WidthRequest="40"
+                       HorizontalOptions="EndAndExpand"
+                       />
+                
+            </HorizontalStackLayout>
+            <CollectionView  ItemsSource="{Binding FurnitureProductCategory}"
+                             ItemsLayout="HorizontalList"
+                             x:Name="Clicked"
+                             SelectedItem="{Binding ItemSelect}"
+                             SelectionChangedCommand="{Binding TapCommand}"
+                             SelectionMode="Single"
+                             >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonState">
+                                    <VisualState Name="Normal"/>
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="Background"
+                                                    Value="White"/>
+                                            <Setter TargetName="Categories"
+                                                    Property="Label.BackgroundColor"
+                                                    Value="Orange"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Frame HeightRequest="150"
+                                   WidthRequest="120"
+                                   Margin="10"
+                                   x:Name="Categories"
+                                   >
+                                <Image Source="{Binding CategoriesImage}"
+                                      />
+                            </Frame>
+
+                            <Label Text="{Binding CategoriesName}"
+                                   HorizontalOptions="Center"
+                                   />
+                            <Label Text="{Binding CategoriesValue, StringFormat='{0:d} Items'}"
+                                   HorizontalOptions="Center"
+                                   />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            <Label Text="Trending" 
+                   Margin="10,20"
+                   FontAttributes="Bold"
+                   FontSize="20"
+                   />
+            <CollectionView ItemsSource="{Binding FurnitureProductList}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="10"
+                               Margin="10"
+                               >
+                            <Grid ColumnDefinitions="*,Auto,*"
+                                  ColumnSpacing="20"
+                                  >
+                                <Frame HeightRequest="90"
+                                       WidthRequest="70"
+                                       Grid.Column="0"
+                                       HorizontalOptions="Start"
+                                       >
+                                    <Image Source="{Binding TrendingListImage}"/>
+                                </Frame>
+                                <VerticalStackLayout  Grid.Column="1"
+                                                      Spacing="10"
+                                                      VerticalOptions="Center"
+                                                      >
+                                    <Label Text="{Binding TrendingListName}"
+                                           />
+                                    <Label Text="{Binding TrendingListPrize , StringFormat='{0:d} RS'}"/>
+                                </VerticalStackLayout>
+                                <Button Text="Buy Now"
+                                        HeightRequest="40"
+                                        WidthRequest="80"
+                                        HorizontalOptions="EndAndExpand"
+                                        Grid.Column="2"
+                                        VerticalOptions="Center"
+                                        />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

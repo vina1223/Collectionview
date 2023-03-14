@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Collectionview.View.ClothStoreView"
+             xmlns:ViewModel="clr-namespace:Collectionview.ViewModel"
+             Title="ClothStoreView">
+    <ContentPage.BindingContext>
+        <ViewModel:ClothStoreViewModel></ViewModel:ClothStoreViewModel>
+    </ContentPage.BindingContext>
+
+<ScrollView>
+        <StackLayout Margin="10"
+                     Spacing="10"
+                     >
+            <Label Text="Find Your Clothes"
+                   FontAttributes="Bold"
+                   FontSize="Medium"
+                   />
+            <Frame BackgroundColor="LightGoldenrodYellow">
+                <Grid RowDefinitions="*,*,*"
+                      ColumnDefinitions="*,*">
+                    <Label Text="Dec 16 - Dec 31"
+                           Grid.Column="0"
+                           Grid.Row="0"
+                           FontAttributes="Bold"
+                           TextColor="Black"
+                           />
+                    <Label Text="25% Off"
+                           Grid.Column="0"
+                           Grid.Row="1"
+                           FontSize="Title"
+                           FontAttributes="Bold"
+                           TextColor="Black"
+                           />
+                    <Label Text="Super Discount"
+                           Grid.Column="0"
+                           Grid.Row="2"
+                           FontAttributes="Bold"
+                           TextColor="Black"
+                           
+                           />
+                    <Image Source="dotnet_bot"
+                           Grid.Column="1"
+                           Grid.Row="0"
+                           Grid.RowSpan="3"
+                           HeightRequest="100"
+                           WidthRequest="100"
+                           />
+
+                </Grid>
+            </Frame>
+
+            <CollectionView SelectionMode="Single"
+                            ItemsLayout="HorizontalList"
+                            ItemsSource="{Binding ClothCategory}"
+                            SelectedItem="{Binding SelectCategory}"
+                            SelectionChangedCommand="{Binding MyCommand}"
+                            >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate >
+                        <StackLayout>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonState">
+                                    <VisualState Name="Normal"/>
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="Label.TextColor"
+                                                    TargetName="Label"
+                                                    Value="White"/>
+                                            <Setter TargetName="Myframe"
+                                                    Property="Frame.BackgroundColor"
+                                                    Value="Black"/>
+
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <Frame x:Name="Myframe"
+                                   Margin="7"
+                                   Padding="10"
+                                   >
+                                <Label Text="{Binding Name}"
+                                       x:Name="Label"
+                                       />
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <CollectionView ItemsSource="{Binding ClothProduct}"
+                            
+                           
+                            
+                            >
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="2"
+                                     VerticalItemSpacing="10"
+                                     HorizontalItemSpacing="20"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame>
+                            <Grid RowDefinitions="Auto,*"
+                                  >
+                                <Image Source="{Binding ProductImage}"
+                                       Grid.Row="0"
+                                       />
+                                <VerticalStackLayout Grid.Row="1" 
+                                                     VerticalOptions="Center"
+                                                     HorizontalOptions="Center"
+                                                     >
+                                    <Label Text="{Binding ProductName}"
+                                           Margin="5"
+                                           />
+                                    <Label Text="{Binding ProductPrize , StringFormat='${0:d}'}"
+                                           HorizontalOptions="Center"
+                                           />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>

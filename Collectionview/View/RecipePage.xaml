@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Collectionview.View.RecipePage"
+             Title="RecipePage"
+             BackgroundColor="LightPink"
+             xmlns:ViewModel="clr-namespace:Collectionview.ViewModel"
+             >
+
+    <ContentPage.BindingContext>
+        <ViewModel:RecipiViewModel></ViewModel:RecipiViewModel>
+    </ContentPage.BindingContext>
+    
+    <ScrollView>
+        <StackLayout>
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <Label Text="EASY"
+                       TextColor="Green"
+                       FontSize="30"
+                       />
+                <Label Text="FOOD"
+                       TextColor="Black"
+                       FontSize="30"
+                       />
+            </HorizontalStackLayout>
+
+            <CollectionView  ItemsSource="{Binding ProductDetails}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*">
+                            
+                        
+                        <Frame BackgroundColor="White"
+                               CornerRadius="10"
+                               Margin="20,5,20,5"
+                               Grid.Column="0"
+                               Padding="10"
+                               >
+
+                            <Grid ColumnDefinitions="90,*"
+                                  ColumnSpacing="10"
+                                  >
+                            <Frame HeightRequest="70"
+                                   WidthRequest="70"
+                                   Padding="0"
+                                   Grid.Column="0"
+                                   >
+                                <Image Source="{Binding ProductImage}"/>
+                            </Frame>
+                            <Grid RowDefinitions="*,*"
+                                  ColumnDefinitions="*,*,*"
+                                  Grid.Column="1"
+                                  Margin="10"
+                                  >
+                                <Label Text="{Binding ProductName}"
+                                       Grid.Column="0"
+                                       Grid.Row="0"
+                                       Grid.ColumnSpan="2"
+                                       />
+                               
+                                <Label Text="{Binding Rating}"
+                                       Grid.Column="0"
+                                       Grid.Row="1"
+                                       />
+                                <Label Text="{Binding Calories}"
+                                       Grid.Column="1"
+                                       Grid.Row="1"
+                                       />
+                                <Label Text="{Binding Time}"
+                                       Grid.Column="2"
+                                       Grid.Row="1"
+                                       />
+                            </Grid>
+                                    
+                        </Grid>
+                        </Frame>
+                            <Border 
+                                    StrokeShape="RoundRectangle 0,15,15,0"
+                                    BackgroundColor="LawnGreen"
+                                    Grid.Column="0"
+                                    HeightRequest="40"
+                                    WidthRequest="70"
+                                    Grid.Row="0"
+                                    Margin="290,0,0,85"
+                                    IsVisible="{Binding Visible}"
+                                    >
+                                <Border.Content>
+                                    <Label Text="{Binding NewProduct}"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               />
+                                </Border.Content>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+         
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
