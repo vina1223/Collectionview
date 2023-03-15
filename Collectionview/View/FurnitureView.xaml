@@ -3,7 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Collectionview.View.FurnitureView"
              xmlns:ViewModel="clr-namespace:Collectionview.ViewModel"
-             Title="FurnitureView">
+             NavigationPage.HasNavigationBar="True"
+             >
+    <NavigationPage.TitleView>
+        <Grid ColumnDefinitions="*,*" 
+              BackgroundColor="Gray"
+
+              Padding="10,5"
+                 >
+            <Label Text="Furniture Shop" 
+                       HorizontalOptions="Start"
+                       FontSize="18"
+                       Grid.Column="0"
+                       VerticalOptions="Center"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       />
+            <Image Source="dotnet_bot"
+                       HeightRequest="40"
+                       WidthRequest="40"
+                       Grid.Column="1"
+                       HorizontalOptions="EndAndExpand"
+                       />
+        </Grid>
+    </NavigationPage.TitleView>
 
     <ContentPage.BindingContext>
         <ViewModel:FurnitureViewModel></ViewModel:FurnitureViewModel>
@@ -11,20 +34,8 @@
     
     <ScrollView>
         <StackLayout>
-            <HorizontalStackLayout >
-                <Label Text="Furniture Shop" 
-                       HorizontalOptions="Start"
-                       />
-                <Image Source="dotnet_bot"
-                       HeightRequest="40"
-                       WidthRequest="40"
-                       HorizontalOptions="EndAndExpand"
-                       />
-                
-            </HorizontalStackLayout>
             <CollectionView  ItemsSource="{Binding FurnitureProductCategory}"
                              ItemsLayout="HorizontalList"
-                             x:Name="Clicked"
                              SelectedItem="{Binding ItemSelect}"
                              SelectionChangedCommand="{Binding TapCommand}"
                              SelectionMode="Single"
@@ -51,6 +62,7 @@
                                    WidthRequest="120"
                                    Margin="10"
                                    x:Name="Categories"
+                                   BackgroundColor="LightGoldenrodYellow"
                                    >
                                 <Image Source="{Binding CategoriesImage}"
                                       />
@@ -58,9 +70,11 @@
 
                             <Label Text="{Binding CategoriesName}"
                                    HorizontalOptions="Center"
+                                   FontAttributes="Bold"
                                    />
                             <Label Text="{Binding CategoriesValue, StringFormat='{0:d} Items'}"
                                    HorizontalOptions="Center"
+                                   TextColor="DarkSlateBlue"
                                    />
                         </VerticalStackLayout>
                     </DataTemplate>
@@ -74,43 +88,52 @@
                    FontAttributes="Bold"
                    FontSize="20"
                    />
-            <CollectionView ItemsSource="{Binding FurnitureProductList}">
+            <CollectionView ItemsSource="{Binding MyFurnitureTrendingLists}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame Padding="10"
                                Margin="10"
+                              
                                >
-                            <Grid ColumnDefinitions="*,Auto,*"
+                            <Grid ColumnDefinitions="Auto,Auto,*"
                                   ColumnSpacing="20"
                                   >
                                 <Frame HeightRequest="90"
                                        WidthRequest="70"
                                        Grid.Column="0"
                                        HorizontalOptions="Start"
+                                       BackgroundColor="LightGoldenrodYellow"
                                        >
                                     <Image Source="{Binding TrendingListImage}"/>
                                 </Frame>
                                 <VerticalStackLayout  Grid.Column="1"
                                                       Spacing="10"
                                                       VerticalOptions="Center"
+                                                      HorizontalOptions="Start"
+                                                      
                                                       >
                                     <Label Text="{Binding TrendingListName}"
+                                           FontSize="18"
+                                           FontAttributes="Bold"
                                            />
-                                    <Label Text="{Binding TrendingListPrize , StringFormat='{0:d} RS'}"/>
+                                    <Label Text="{Binding TrendingListPrize , StringFormat='{0:d} RS'}"
+                                           FontAttributes="Bold"
+                                           TextColor="DarkSlateBlue"
+                                           />
                                 </VerticalStackLayout>
                                 <Button Text="Buy Now"
-                                        HeightRequest="40"
-                                        WidthRequest="80"
-                                        HorizontalOptions="EndAndExpand"
+                                        WidthRequest="110"
+                                        HorizontalOptions="End"
                                         Grid.Column="2"
                                         VerticalOptions="Center"
+                                        CornerRadius="15"
+                                        BackgroundColor="DarkSlateBlue"
                                         />
                             </Grid>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -15,7 +15,7 @@ namespace Collectionview.ViewModel
     public class ClothStoreViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<Product> _ClothProduct;
-        private ObservableCollection<Product> _MyProduct;
+        private ObservableCollection<Product> MyProduct;
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string propertyName = "")
@@ -85,7 +85,7 @@ namespace Collectionview.ViewModel
 
            };
             SelectCategory = ClothCategory.FirstOrDefault();
-           _MyProduct= new ObservableCollection<Product> 
+           MyProduct= new ObservableCollection<Product> 
            {
               new Product
               {
@@ -94,6 +94,7 @@ namespace Collectionview.ViewModel
                   ProductPrize = 100,
                   ProductCategory= ProductType.Winter,
                   AllCategory = ProductType.All,
+                  ChangeImg = "dotnet_bot"
               },
               new Product
               {
@@ -186,7 +187,7 @@ namespace Collectionview.ViewModel
               },
            };
 
-            var ShowDetails = _MyProduct.Where(x => x.AllCategory.Equals(SelectCategory.ClothCategory)).ToObservableCollection();
+            var ShowDetails = MyProduct.Where(x => x.AllCategory.Equals(SelectCategory.ClothCategory)).ToObservableCollection();
             ClothProduct = ShowDetails;
         }
 
@@ -194,12 +195,12 @@ namespace Collectionview.ViewModel
         {
             if (SelectCategory.ClothCategory == ProductType.All)
             {
-                var ShowDetails = _MyProduct.Where(x => x.AllCategory.Equals(SelectCategory.ClothCategory)).ToObservableCollection();
+                var ShowDetails = MyProduct.Where(x => x.AllCategory.Equals(SelectCategory.ClothCategory)).ToObservableCollection();
                 ClothProduct = ShowDetails;
             }
             else
             {
-                var ShowDetails = _MyProduct.Where(x => x.ProductCategory.Equals(SelectCategory.ClothCategory)).ToObservableCollection();
+                var ShowDetails = MyProduct.Where(x => x.ProductCategory.Equals(SelectCategory.ClothCategory)).ToObservableCollection();
                 ClothProduct = ShowDetails;
             }
             

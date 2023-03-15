@@ -105,9 +105,21 @@
                     <DataTemplate>
                         <Frame>
                             <Grid RowDefinitions="Auto,*"
+                                  ColumnDefinitions="*"
                                   >
                                 <Image Source="{Binding ProductImage}"
                                        Grid.Row="0"
+                                       Grid.Column="0"
+                                       />
+                                <ImageButton Source="{Binding ProductImage}"
+                                       Grid.Row="0"
+                                       Grid.Column="0"
+                                       HorizontalOptions="End"
+                                       VerticalOptions="Start"                                                 
+                                       HeightRequest="40"
+                                       WidthRequest="40"
+                                       BackgroundColor="Red"
+                                       Command="{Binding ChangeImage}"      
                                        />
                                 <VerticalStackLayout Grid.Row="1" 
                                                      VerticalOptions="Center"

@@ -49,6 +49,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="ViewModel\ptz5omgp.svx~" />
 	  <None Remove="ViewModel\wnidg00k.vgk~" />
 	</ItemGroup>
 

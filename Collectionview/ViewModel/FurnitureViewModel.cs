@@ -9,11 +9,9 @@ using static Collectionview.Model.FurnitureModel;
 namespace Collectionview.ViewModel
 {
     public class FurnitureViewModel : INotifyPropertyChanged
-    {
-
-        public FurnitureTrendingList _Furniture;
+    {  
         public ICommand TapCommand { get; private set; }
-        FurnitureCategoryListData itemSelect;
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string propertyName = "")
@@ -21,25 +19,32 @@ namespace Collectionview.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private FurnitureCategoryListData itemSelect;
         public FurnitureCategoryListData ItemSelect
         {
             get { return itemSelect; }
             set
             {
-                if (itemSelect != null)
-                {
-                    itemSelect = value;
-                }
+                itemSelect = value;
+                OnPropertyChanged();
             }
         }
-        public ObservableCollection<FurnitureCategoryListData> FurnitureProductCategory { get; set; }
-        public ObservableCollection<FurnitureTrendingList> FurnitureProductList { get; set; }
-        private ObservableCollection<FurnitureTrendingList> ShowDetails 
+
+        private ObservableCollection<FurnitureTrendingList> _furnituretrendinglist;
+        public ObservableCollection<FurnitureTrendingList> MyFurnitureTrendingLists
         {
-            get;
-            set;
-            
+            get { return _furnituretrendinglist; }
+            set
+            {
+                _furnituretrendinglist = value;
+                OnPropertyChanged();
+            }
         }
+
+
+        public ObservableCollection<FurnitureCategoryListData> FurnitureProductCategory { get; set; }
+        private ObservableCollection<FurnitureTrendingList> FurnitureProductList { get; set; }
+       
         public FurnitureViewModel()
         {
             TapCommand = new Command(MyMethod);
@@ -134,13 +139,13 @@ namespace Collectionview.ViewModel
             };
 
             var details = FurnitureProductList.Where(x => x.Category== ItemSelect.Categoryval).ToObservableCollection();
-            ShowDetails = details;
+             MyFurnitureTrendingLists= details;
         }
 
         public void MyMethod()
         {
             var details = FurnitureProductList.Where(x => x.Category == ItemSelect.Categoryval).ToObservableCollection();
-            ShowDetails = details;
+            MyFurnitureTrendingLists = details;
         }
         
     }

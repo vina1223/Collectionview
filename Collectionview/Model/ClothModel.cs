@@ -20,6 +20,8 @@ namespace Collectionview.Model
             public int ProductPrize { get; set; }
             public ProductType ProductCategory { get; set; }
             public ProductType AllCategory { get; set; }
+            public ImageSource ChangeImg { get; set; }
+
         }
 
         public enum ProductType

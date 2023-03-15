@@ -2,29 +2,131 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Collectionview.View.ChatView"
+             xmlns:ViewModel="clr-namespace:Collectionview.ViewModel" 
              Title="ChatView">
+
+    <ContentPage.BindingContext>
+        <ViewModel:ChatViewModel></ViewModel:ChatViewModel>
+    </ContentPage.BindingContext>
+    
     <ScrollView>
         <StackLayout>
-            <Label Text="Inbox"/>
-            <HorizontalStackLayout>
-                <Frame >
-                    <HorizontalStackLayout>
-                        <Label Text="Private"/>
-                        <Frame>
-                            <Label Text="3"/>
-                        </Frame>
-                    </HorizontalStackLayout>
-                </Frame>
+            <Label Text="Inbox"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   Margin="10"
+                   />
+            <CollectionView ItemsSource="{Binding ChatItems}"
+                            SelectedItem="{Binding SelectItem}"
+                            SelectionChangedCommand="{Binding SelectCommand}"
+                            ItemsLayout="HorizontalList"
+                            SelectionMode="Single"
+                            >
+                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonState">
+                                    <VisualState Name="Normal"/>
+                                    <VisualState Name="Selected">
+                                        <VisualState.Setters>
+                                            <Setter Property="Label.TextColor"
+                                                    TargetName="MyLabel"
+                                                    Value="Black"/>
+                                            <Setter Property="Label.TextColor"
+                                                    TargetName="MyLabel2"
+                                                    Value="Black"/>
+                                            <Setter TargetName="MyFrame"
+                                                    Property="Frame.BackgroundColor"
+                                                    Value="SkyBlue"/>
 
-                <Frame >
-                    <HorizontalStackLayout>
-                        <Label Text="Private"/>
-                        <Frame>
-                            <Label Text="2"/>
-                        </Frame>
-                    </HorizontalStackLayout>
-                </Frame>
-            </HorizontalStackLayout>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Frame Padding="10"
+                                   CornerRadius="25"
+                                   Margin="8"
+                                   x:Name="MyFrame"
+                                   >
+                                <HorizontalStackLayout Spacing="10">
+                                    <Label Text="{Binding GroupName}"
+                                           FontSize="16"
+                                           TextColor="OrangeRed"
+                                           x:Name="MyLabel"
+                                           />
+                                    <Frame Padding="0"
+                                           CornerRadius="20"
+                                           BackgroundColor="OrangeRed"
+                                           >
+                                        <Label Text="{Binding GroupVal}"
+                                                VerticalOptions="Center"
+                                           HorizontalOptions="Center"
+                                               TextColor="White"
+                                               x:Name="MyLabel2"
+                                               />
+                                    </Frame>
+                                </HorizontalStackLayout>
+                            </Frame>
+                        </StackLayout>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+            
+            <CollectionView ItemsSource="{Binding MyChat}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="Auto,Auto,*"
+                              ColumnSpacing="20"
+                              Margin="10"
+                              >
+                            <Frame CornerRadius="40"
+                                   Grid.Column="0"
+                                   Padding="0"
+                                   HeightRequest="60"
+                                   WidthRequest="60"
+                                   >
+                                <Image Source="{Binding ProfileImage}"
+                                       />
+                            </Frame>
+                            <VerticalStackLayout Grid.Column="1"
+                                                 HorizontalOptions="Start"
+                                                 VerticalOptions="Center"
+                                                 >
+                                <Label Text="{Binding Name}"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="Black"
+                                       />
+                                <Label Text="{Binding Description}"
+                                       FontSize="15"
+                                       />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="2"
+                                                 HorizontalOptions="EndAndExpand"
+                                                 >
+                                <Label Text="{Binding Time ,StringFormat='{0:g}'}"
+                                       FontSize="Small"
+                                       />
+                                <Frame CornerRadius="50"
+                                       Padding="0"
+                                       BackgroundColor="Green"
+                                       >
+                                    <Label Text="{Binding NoofChat}"
+                                           TextColor="White"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           />
+                                </Frame>
+                            </VerticalStackLayout>
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </StackLayout>
     </ScrollView>
 </ContentPage>

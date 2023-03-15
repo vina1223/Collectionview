@@ -6,6 +6,6 @@ public partial class App : Application
 	{
 		InitializeComponent();
 
-		MainPage = new ClothStoreView();
+		MainPage =new ClothStoreView();
 	}
 }
